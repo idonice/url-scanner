@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+  width: 100vw;
+}
+
+header{
+  margin-top: 30px;
+  color: white;
+  background-color: gray;
+  padding: 15px 0;
+
+}
