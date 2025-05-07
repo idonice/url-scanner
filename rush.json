@@ -17,17 +17,14 @@
   },
 
   "variants": [],
-
   "projects": [
     {
       "packageName": "frontend",
-      "projectFolder": "apps/frontend",
-      "reviewCategory": "apps"
+      "projectFolder": "apps/frontend"
     },
     {
-      "packageName": "backend",
-      "projectFolder": "apps/backend",
-      "reviewCategory": "apps"
+      "packageName": "url-scanner",
+      "projectFolder": "apps/url-scanner"
     }
   ]
 }

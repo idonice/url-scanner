@@ -15,25 +15,5 @@ services:
     ports:
       - '6379:6379'
 
-  # backend:
-  #   build: ./apps/backend
-  #   container_name: backend
-  #   ports:
-  #     - '3000:3000'
-  #   depends_on:
-  #     - mongo
-  #     - redis
-  #   environment:
-  #     - MONGO_URI=mongodb://mongo:27017/urlscanner
-  #     - REDIS_HOST=redis
-
-  # frontend:
-  #   build: ./apps/frontend
-  #   container_name: frontend
-  #   ports:
-  #     - '3001:3000'
-  #   depends_on:
-  #     - backend
-
 volumes:
   mongo_data:
