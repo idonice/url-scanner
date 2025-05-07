@@ -19,6 +19,9 @@ export class Url {
 
   @Prop()
   screenshot?: string;
+
+  @Prop({ default: 0 })
+  riskScore: number;
 }
 
 export const UrlSchema = SchemaFactory.createForClass(Url);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import RiskScoreGauge from "./RiskScoreGauge";
 
 type Props = {
   urlId: string;
@@ -8,6 +9,7 @@ type UrlData = {
   title: string;
   screenshot?: string;
   status: string;
+  riskScore: number;
 };
 
 const Results: React.FC<Props> = ({ urlId }) => {
@@ -21,7 +23,6 @@ const Results: React.FC<Props> = ({ urlId }) => {
       const result = await res.json();
       setData(result);
 
-      // עצור פולינג כשהסטטוס הוא "done"
       if (result.status === "done") {
         clearInterval(interval);
       }
@@ -30,18 +31,12 @@ const Results: React.FC<Props> = ({ urlId }) => {
     return () => clearInterval(interval);
   }, [urlId]);
 
-  if (!data) return <p>Scanning...</p>;
+  if (!data) return <div></div>;
 
   return (
-    <div
-      style={{
-        color: "white",
-        overflow: "hidden",
-        width: "400px",
-        height: "600px",
-      }}
-    >
-      <h4>{data.title}</h4>
+    <div className="results">
+      {data.status === "done" && <RiskScoreGauge score={data.riskScore} />}
+      <h4 style={{ margin: 0 }}>{data.title}</h4>
       {data.status === "done" && data.screenshot && (
         <img
           src={data.screenshot}
@@ -49,7 +44,6 @@ const Results: React.FC<Props> = ({ urlId }) => {
           style={{ maxWidth: "400px" }}
         />
       )}
-      {data.screenshot}
       {data.status !== "done" && <p>סורק את הדף...</p>}
     </div>
   );

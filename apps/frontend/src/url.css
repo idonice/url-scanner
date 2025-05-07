@@ -1,33 +1,31 @@
-
-
-.main{
+.main {
   width: 100vw;
   height: 100vh;
   display: flex;
 }
-.main-container{
+.main-container {
   display: flex;
   width: 50%;
   height: 100vh;
   align-items: center;
   flex-direction: column;
 }
-.actions-container{
+.actions-container {
   justify-content: center;
 }
 
-.results-container{
+.results-container {
   background-color: #151515;
 }
 
-.screenshot-container{
-    width: 400px;
-    height: 300px;
-    background-color: white;
-    border-radius: 20px;
+.screenshot-container {
+  width: 400px;
+  height: 300px;
+  background-color: white;
+  border-radius: 20px;
 }
 
-.content{
+.content {
   width: 80%;
   height: 500px;
   margin: auto;
@@ -36,7 +34,7 @@
   align-items: center;
 }
 
-input{
+input {
   width: 100%;
   height: 30px;
   border: 1px solid gray;
@@ -44,18 +42,27 @@ input{
   box-sizing: border-box;
 }
 
-.input-form{
+.input-form {
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 300px;
 }
 
-.results{
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 50px;
   color: white;
+  overflow: hidden;
+  width: 400px;
+  height: 100vh;
+  text-align: center;
 }
 
-.submit-btn{
+.submit-btn {
   width: 100%;
   height: 30px;
   color: white;
@@ -63,4 +70,3 @@ input{
   border-radius: 5px;
   box-sizing: border-box;
 }
-
