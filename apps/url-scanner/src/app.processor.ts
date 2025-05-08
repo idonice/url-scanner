@@ -4,7 +4,6 @@ import puppeteer from 'puppeteer';
 import { AppService } from './app.service';
 import { S3Service } from './aws/s3.service';
 import { getWhoisInfo } from './url-scanner.util';
-import { URL } from 'url';
 
 @Processor('url-queue')
 export class AppProcessor {
@@ -37,7 +36,7 @@ export class AppProcessor {
       riskScore += 20;
     }
     const hasPasswordInput = await page.evaluate(
-      () => !!document.querySelector('input[type=password'),
+      () => !!document.querySelector('input[type=password]'),
     );
     if (hasPasswordInput) {
       riskScore += 20;

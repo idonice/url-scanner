@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RiskScoreGauge from "./RiskScoreGauge";
+import { ClipLoader } from "react-spinners";
 
 type Props = {
   urlId: string;
@@ -35,6 +36,13 @@ const Results: React.FC<Props> = ({ urlId }) => {
 
   return (
     <div className="results">
+      {data.status !== "done" && (
+        <div className="loading-box">
+          <ClipLoader color="#00cc88" loading={true} size={100} />
+          <p>Scanning</p>
+        </div>
+      )}
+
       {data.status === "done" && <RiskScoreGauge score={data.riskScore} />}
       <h4 style={{ margin: 0 }}>{data.title}</h4>
       {data.status === "done" && data.screenshot && (
@@ -44,7 +52,6 @@ const Results: React.FC<Props> = ({ urlId }) => {
           style={{ maxWidth: "400px" }}
         />
       )}
-      {data.status !== "done" && <p>סורק את הדף...</p>}
     </div>
   );
 };

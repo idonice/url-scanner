@@ -70,3 +70,9 @@ input {
   border-radius: 5px;
   box-sizing: border-box;
 }
+.loading-box {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
