@@ -11,6 +11,7 @@ type UrlData = {
   screenshot?: string;
   status: string;
   riskScore: number;
+  risksDescription: string[];
 };
 
 const Results: React.FC<Props> = ({ urlId }) => {
@@ -42,16 +43,35 @@ const Results: React.FC<Props> = ({ urlId }) => {
           <p>Scanning</p>
         </div>
       )}
-
-      {data.status === "done" && <RiskScoreGauge score={data.riskScore} />}
       <h4 style={{ margin: 0 }}>{data.title}</h4>
       {data.status === "done" && data.screenshot && (
-        <img
-          src={data.screenshot}
-          alt="Screenshot"
-          style={{ maxWidth: "400px" }}
-        />
+        <div
+          style={{ height: "400px", overflow: "hidden", borderRadius: "10px" }}
+        >
+          <img
+            src={data.screenshot}
+            alt="Screenshot"
+            style={{ width: "100%" }}
+          />
+        </div>
       )}
+      <div className="risks-container">
+        {data.status === "done" && data.risksDescription.length > 0 ? (
+          <div className="results-container__text">
+            <p>
+              <b>Risks description:</b>
+            </p>
+            <ul>
+              {data.risksDescription.map((desc, index) => (
+                <li key={index}>{desc}</li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
+        {data.status === "done" && <RiskScoreGauge score={data.riskScore} />}
+      </div>
     </div>
   );
 };

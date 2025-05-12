@@ -7,7 +7,7 @@ type Props = {
 
 const RiskScoreGauge: React.FC<Props> = ({ score }) => {
   return (
-    <div style={{ width: 300, marginBottom: "20px" }}>
+    <div style={{ width: 200 }}>
       <GaugeComponent
         value={score}
         maxValue={100}
@@ -19,8 +19,9 @@ const RiskScoreGauge: React.FC<Props> = ({ score }) => {
           width: 0.2,
         }}
         labels={{
+          tickLabels: { hideMinMax: true },
           valueLabel: {
-            formatTextValue: (value: number) => `${value}% Risk`,
+            formatTextValue: (value) => `${value}% risks`,
           },
         }}
       />

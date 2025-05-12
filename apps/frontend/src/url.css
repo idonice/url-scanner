@@ -55,9 +55,9 @@ input {
   align-items: center;
   gap: 10px;
   padding: 50px;
+  justify-content: space-evenly;
   color: white;
   overflow: hidden;
-  width: 400px;
   height: 100vh;
   text-align: center;
 }
@@ -69,10 +69,30 @@ input {
   background-color: black;
   border-radius: 5px;
   box-sizing: border-box;
+  cursor: pointer;
 }
 .loading-box {
   display: flex;
   flex-direction: column;
   height: 100vh;
   justify-content: center;
+}
+
+.risks-container {
+  display: flex;
+  align-items: center;
+
+  font-size: 12px;
+}
+
+.results-container ul {
+  margin-top: 2px;
+  padding-inline-start: 10px;
+}
+.results-container__text {
+  text-align: left;
+}
+
+.results-container__text p {
+  margin: 0;
 }

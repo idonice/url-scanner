@@ -14,6 +14,8 @@ export class AppProcessor {
 
   @Process({ concurrency: 5 })
   async handle(job: Job<{ url: string; docId: string }>) {
+    let risksDescription: string[] = [];
+
     //accepting and saving
     const { url, docId } = job.data;
     console.log('job received:', job.data);
@@ -34,12 +36,7 @@ export class AppProcessor {
     let riskScore = 0;
     if (!url.startsWith('https://')) {
       riskScore += 20;
-    }
-    const hasPasswordInput = await page.evaluate(
-      () => !!document.querySelector('input[type=password]'),
-    );
-    if (hasPasswordInput) {
-      riskScore += 20;
+      risksDescription.push('Connection is not secure (no HTTPS)');
     }
 
     const hasIframe = await page.evaluate(
@@ -47,7 +44,35 @@ export class AppProcessor {
     );
     if (hasIframe) {
       riskScore += 20;
+      risksDescription.push(
+        'Page contains iframe(s) — may hide external content',
+      );
     }
+
+    const faviconUrl = await page.evaluate(() => {
+      const link = document.querySelector("link[rel~='icon']");
+      return (link as HTMLLinkElement)?.href || null;
+    });
+
+    if (faviconUrl) {
+      const faviconHost = new URL(faviconUrl).hostname;
+      const pageHost = new URL(url).hostname;
+
+      if (faviconHost !== pageHost) {
+        riskScore += 10;
+        risksDescription.push(
+          `Favicon loaded from different domain (${faviconHost})`,
+        );
+      }
+      if (faviconHost.includes('google') && !pageHost.includes('google')) {
+        riskScore += 15;
+        risksDescription.push('Favicon appears to be stolen from Google');
+      }
+    } else {
+      riskScore += 5;
+      risksDescription.push('No favicon found');
+    }
+
     const suspiciousWords = ['secure', 'login', 'update', 'verify'];
     if (suspiciousWords.some((w) => url.includes(w))) {
       riskScore += 5;
@@ -63,6 +88,7 @@ export class AppProcessor {
       title,
       screenshot: s3Url,
       riskScore,
+      risksDescription,
     });
 
     await browser.close();
